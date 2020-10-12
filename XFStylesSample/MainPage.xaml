@@ -1,11 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="XFStylesSample.MainPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xfstylessample="clr-namespace:XFStylesSample" x:Class="XFStylesSample.MainPage">
+    <ContentPage.Resources>
+        <!-- Explicit Style -->
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="TextColor" Value="Red" />
+            <Setter Property="BackgroundColor" Value="Yellow" />
+        </Style>
+
+        <!-- Implicit Style -->
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+
+        <!-- Style Inheritance -->
+        <Style x:Key="BaseStyle" TargetType="View">
+            <Setter Property="BackgroundColor" Value="Azure" />
+        </Style>
+
+        <Style x:Key="BorderedButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="BorderColor" Value="Blue" />
+        </Style>
+
+        <Style x:Key="OrangeTextStyle" TargetType="Label" BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="TextColor" Value="Orange" />
+        </Style>
+    </ContentPage.Resources>
     <StackLayout>
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36" />
+            <Label Text="Styles Sample" HorizontalTextAlignment="Center" TextColor="White" FontSize="36" />
         </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10" />
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0" />
+        <Label Style="{StaticResource LabelStyle}" Text="Start developing now" FontSize="Title" Padding="30,10,30,10" />
+        <xfstylessample:MyCustomLabel Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0" />
         <Label FontSize="16" Padding="30,24,30,0">
             <Label.FormattedText>
                 <FormattedString>
@@ -16,5 +41,9 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+
+        <Button Text="Did you subscribe to my YT channel yet?" Style="{StaticResource BorderedButtonStyle}" BorderWidth="2" />
+
+        <Label Text="Subscribe now!" Style="{StaticResource OrangeTextStyle}" />
     </StackLayout>
 </ContentPage>
